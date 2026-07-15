@@ -1,0 +1,25 @@
+{
+  "github.copilot.enable": {
+    "*": false
+  },
+  "editor.tokenColorCustomizations": {
+    "comments": "#7EE787",
+    "textMateRules": [
+      {
+        "scope": [
+          "comment",
+          "punctuation.definition.comment"
+        ],
+        "settings": {
+          "foreground": "#7EE787",
+          "fontStyle": ""
+        }
+      }
+    ]
+  },
+  "editor.semanticTokenColorCustomizations": {
+    "rules": {
+      "comment": "#7EE787"
+    }
+  }
+}
