@@ -14,6 +14,15 @@ type Customer struct {
 	Ticket        []string
 }
 
+type Snack struct {
+	Name string
+	Price float64
+}
+
+type Purchasable interface {
+	GetPrice() float64
+}
+
 func purchaseTicket(customer *Customer, ticket *Ticket) {
 	customer.WalletBalance = customer.WalletBalance - ticket.Price
 	customer.Ticket = append(customer.Ticket, ticket.Movie, ticket.Seat)
@@ -21,6 +30,25 @@ func purchaseTicket(customer *Customer, ticket *Ticket) {
 
 func applyDiscount(ticket *Ticket) {
 	ticket.Price = ticket.Price * 0.8
+}
+
+// method
+func (ticket *Ticket) ApplyDiscount() {
+	ticket.Price = ticket.Price * 0.8
+}
+
+// method defined by interface
+func getPrice(t.Purchasable) float64 {
+
+} 
+
+
+func (t Ticket) Purchasable() float64 {
+	t.GetPrice()
+}
+
+func (s Snack) GetPrice() float64 {
+	fmt.Println(s.Price)
 }
 
 func main() {
@@ -36,20 +64,27 @@ func main() {
 		WalletBalance: 50,
 	}
 
-	fmt.Println("Before discount: ")
+	snack := Snack{
+		Name: "Popcorn",
+		Price: 8.00,
+	}
 
-	fmt.Println("Movie: ", ticket.Movie)
-	fmt.Println("Price: ", ticket.Price)
-	fmt.Println("Seat: ", ticket.Seat)
+	// fmt.Println("Before discount: ")
 
-	applyDiscount(&ticket)
-	purchaseTicket(&customer, &ticket)
+	// fmt.Println("Movie: ", ticket.Movie)
+	// fmt.Println("Price: ", ticket.Price)
+	// fmt.Println("Seat: ", ticket.Seat)
 
-	fmt.Println("After discount: ")
+	// applyDiscount(&ticket)
+	// purchaseTicket(&customer, &ticket)
 
-	fmt.Println("Movie: ", ticket.Movie)
-	fmt.Println("Price: ", ticket.Price)
-	fmt.Println("Seat: ", ticket.Seat)
+	// fmt.Println("After discount: ")
 
-	fmt.Println("Customer: ", customer)
+	// fmt.Println("Movie: ", ticket.Movie)
+	// fmt.Println("Price: ", ticket.Price)
+	// fmt.Println("Seat: ", ticket.Seat)
+
+	// fmt.Println("Customer: ", customer)
+
+	fmt.Println()
 }
