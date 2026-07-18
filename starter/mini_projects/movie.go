@@ -19,10 +19,6 @@ type Snack struct {
 	Price float64
 }
 
-type Purchasable interface {
-	GetPrice() float64
-}
-
 func purchaseTicket(customer *Customer, ticket *Ticket) {
 	customer.WalletBalance = customer.WalletBalance - ticket.Price
 	customer.Ticket = append(customer.Ticket, ticket.Movie, ticket.Seat)
@@ -37,19 +33,33 @@ func (ticket *Ticket) ApplyDiscount() {
 	ticket.Price = ticket.Price * 0.8
 }
 
-// method defined by interface
-func getPrice(t.Purchasable) float64 {
 
+func GetPrice(t Purchasable) float64 {
+	return t.GetPrice() 
 } 
 
+// 1. interface
+type Purchasable interface {
+	GetPrice() float64
+}
 
-func (t Ticket) Purchasable() float64 {
-	t.GetPrice()
+// 2. Add matching methods to structs
+func (t Ticket) GetPrice() float64 {
+	return t.Price 
 }
 
 func (s Snack) GetPrice() float64 {
-	fmt.Println(s.Price)
+	return s.Price 
 }
+
+// 3. Use the interface in a function 
+func ShowPrice(p Purchasable) {
+	fmt.Println(p.GetPrice())
+}
+
+
+// func (t Ticket) GetPrice() float64
+// func (s Snack) GetPrice() float64
 
 func main() {
 
@@ -59,10 +69,10 @@ func main() {
 		Seat:  "B12",
 	}
 
-	customer := Customer{
-		Name:          "Rolex",
-		WalletBalance: 50,
-	}
+	// customer := Customer{
+	// 	Name:          "Rolex",
+	// 	WalletBalance: 50,
+	// }
 
 	snack := Snack{
 		Name: "Popcorn",
@@ -86,5 +96,6 @@ func main() {
 
 	// fmt.Println("Customer: ", customer)
 
-	fmt.Println()
+	fmt.Println(ticket.GetPrice())
+	fmt.Println(snack.GetPrice())
 }
